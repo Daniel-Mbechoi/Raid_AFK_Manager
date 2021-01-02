@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raid_AFK_Manager", "Raid_AFK_Manager.csproj", "{6ECA2466-0A31-4F4A-98E3-05E3071E7B49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ECA2466-0A31-4F4A-98E3-05E3071E7B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ECA2466-0A31-4F4A-98E3-05E3071E7B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ECA2466-0A31-4F4A-98E3-05E3071E7B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ECA2466-0A31-4F4A-98E3-05E3071E7B49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {713275F5-E0BD-4374-8DAB-7153C8D2A11B}
+	EndGlobalSection
+EndGlobal

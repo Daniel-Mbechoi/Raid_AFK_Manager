@@ -47,7 +47,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaidManager.cs" />
-    <Compile Include="Tools\ConsoleTool.cs" />
+    <Compile Include="Tools\ConsoleWriter.cs" />
+    <Compile Include="Tools\WindowHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

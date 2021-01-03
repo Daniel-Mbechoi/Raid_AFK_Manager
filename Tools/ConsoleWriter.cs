@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Raid_AFK_Manager.Tools
 {
-    internal static class ConsoleTool
+    internal static class ConsoleWriter
     {
         internal static void WriteLineError(string message)
         {

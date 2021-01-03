@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,11 +12,28 @@ namespace Raid_AFK_Manager
 {
     internal class RaidManager
     {
+
+
         private const string _raidWindowTitle = "Raid: Shadow Legends";
         private int _raidProcessId = 0;
         private readonly int _mainProcessId = Process.GetCurrentProcess().Id;
 
         internal void DoManagement(string exePath, string exeArgs)
+        {
+            RepositionMainWindow();
+            if (CheckRaidApp(exePath, exeArgs))
+            {
+                RepositionRaidWindow();
+                ConsoleWriter.WriteLineInformation("No error detected\nSTEP 3 is a success. Congrats and see you soon for step 4.");
+            }
+        }
+
+        private void RepositionRaidWindow()
+        {
+            WindowHandler.PositionWindow(_raidProcessId, 700, 0, 1235, 615);
+        }
+
+        private bool CheckRaidApp(string exePath, string exeArgs)
         {
             bool stepSuccess = false;
             if (IsRaidRunning())
@@ -31,14 +49,12 @@ namespace Raid_AFK_Manager
                 if (LaunchRaid(exePath, exeArgs)) stepSuccess = true;
             }
 
-            if (stepSuccess)
-            {
-                ConsoleTool.WriteLineInformation("STEP 2 SUCCEED ! CONGRATS !");
-            }
-            else
-            {
-                ConsoleTool.WriteLineError("Cannot launch or detect Raid.\nSTEP 2 FAILED... Sorry");
-            }
+            return stepSuccess;
+        }
+
+        private void RepositionMainWindow()
+        {
+            WindowHandler.PositionWindow(_mainProcessId, 0, 0, 720, 800);
         }
 
         private bool LaunchRaid(string exePath, string exeArgs)
@@ -47,7 +63,7 @@ namespace Raid_AFK_Manager
             try
             {
                 Process.Start(exePath, exeArgs);
-                ConsoleTool.CountDown("Waiting for raid to finish its shenanigans...{0}", 50);
+                ConsoleWriter.CountDown("Waiting for raid to finish its shenanigans...{0}", 50);
                 if (IsRaidRunning())
                 {
                     Console.WriteLine("\nRaid launched successfully !");
@@ -55,12 +71,12 @@ namespace Raid_AFK_Manager
                 }
                 else
                 {
-                    ConsoleTool.WriteLineError($"Error while trying to launch ({exePath} {exeArgs}) : Cannot found procees Id");
+                    ConsoleWriter.WriteLineError($"Error while trying to launch ({exePath} {exeArgs}) : Cannot found procees Id");
                 }
             }
             catch (Exception e)
             {
-                ConsoleTool.WriteLineError(e);
+                ConsoleWriter.WriteLineError(e);
             }
 
             return success;

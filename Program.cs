@@ -19,22 +19,24 @@ namespace Raid_AFK_Manager
                 CheckConfigFile();
                 RaidManager raid = new RaidManager();
                 raid.DoManagement(_plariumExePath, _plariumExeArgs);
-                ConsoleTool.CountDown("Closing app in {0}", 30);
+                ConsoleWriter.CountDown("Closing app in {0}", 30);
             }
             catch (Exception e)
             {
-                ConsoleTool.WriteLineError("Unexpected error detected. This is bad...");
-                ConsoleTool.WriteLineError(e);
+                ConsoleWriter.WriteLineError("Unexpected error detected. This is bad...");
+                ConsoleWriter.WriteLineError(e);
+                Console.WriteLine("Push any key to close the app");
+                Console.ReadKey();
             }
         }
 
         private static void CheckConfigFile()
         {
             if (string.IsNullOrEmpty(_plariumExePath))
-                ConsoleTool.WriteLineWarning("Path to the plarium app is empty.\nPlease check the config file if it is unintentional.");
+                ConsoleWriter.WriteLineWarning("Path to the plarium app is empty.\nPlease check the config file if it is unintentional.");
             else if (!File.Exists(_plariumExePath))
             {
-                ConsoleTool.WriteLineWarning($"The file \"{_plariumExePath}\" don't exist.");
+                ConsoleWriter.WriteLineWarning($"The file \"{_plariumExePath}\" don't exist.");
                 _plariumExePath = string.Empty;
             }
 

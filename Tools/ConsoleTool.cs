@@ -15,7 +15,7 @@ namespace Raid_AFK_Manager.Tools
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.BackgroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         internal static void WriteLineError(Exception exception)

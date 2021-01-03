@@ -22,6 +22,7 @@ namespace Raid_AFK_Manager
             {
                 Console.WriteLine("Raid app has been detected.");
                 Thread.Sleep(2000);
+                stepSuccess = true;
 
             }
             else if (!string.IsNullOrEmpty(exePath))

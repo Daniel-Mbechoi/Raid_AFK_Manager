@@ -46,7 +46,7 @@ namespace Raid_AFK_Manager
             try
             {
                 Process.Start(exePath, exeArgs);
-                ConsoleTool.CountDown("Waiting for raid to finish its shenanigans...{0}", 40);
+                ConsoleTool.CountDown("Waiting for raid to finish its shenanigans...{0}", 50);
                 if (IsRaidRunning())
                 {
                     Console.WriteLine("\nRaid launched successfully !");

@@ -14,23 +14,27 @@ namespace Raid_AFK_Manager
     {
 
 
-        private const string _raidWindowTitle = "Raid: Shadow Legends";
         private int _raidProcessId = 0;
         private readonly int _mainProcessId = Process.GetCurrentProcess().Id;
 
+        private const string _raidWindowTitle = "Raid: Shadow Legends";
+
         internal void DoManagement(string exePath, string exeArgs)
         {
-            RepositionMainWindow();
+            int compteur = 0;
+            WindowHandler.RepositionMainWindow(_mainProcessId);
             if (CheckRaidApp(exePath, exeArgs))
             {
-                RepositionRaidWindow();
-                ConsoleWriter.WriteLineInformation("No error detected\nSTEP 3 is a success. Congrats and see you soon for step 4.");
-            }
-        }
+                WindowHandler.RepositionRaidWindow(_raidProcessId);
+                RaidChecker raid = new RaidChecker(_raidProcessId);
 
-        private void RepositionRaidWindow()
-        {
-            WindowHandler.PositionWindow(_raidProcessId, 700, 0, 1235, 615);
+                while (raid.ShowBastion())
+                {
+                    compteur++;
+                    raid.CheckMine();
+                    ConsoleWriter.CountDown($"End of loop n°{compteur}. Next loop start in {{0}}", 90);
+                }
+            }
         }
 
         private bool CheckRaidApp(string exePath, string exeArgs)
@@ -50,11 +54,6 @@ namespace Raid_AFK_Manager
             }
 
             return stepSuccess;
-        }
-
-        private void RepositionMainWindow()
-        {
-            WindowHandler.PositionWindow(_mainProcessId, 0, 0, 720, 800);
         }
 
         private bool LaunchRaid(string exePath, string exeArgs)

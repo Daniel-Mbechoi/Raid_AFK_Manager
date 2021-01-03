@@ -7,19 +7,18 @@ namespace Raid_AFK_Manager
 {
     class Program
     {
-        private static readonly string _version = "0.0.2";
+        private static readonly string _version = "0.0.4";
         private static string _plariumExePath = ConfigurationManager.AppSettings["PlariumExePath"];
         private static string _plariumExeArgs = ConfigurationManager.AppSettings["PlariumExeArguments"];
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"Hello and welcome to RAID AFK MANAGER v{_version}");
+            Console.WriteLine($"Hello and welcome to RAID AFK MANAGER v{_version} !");
             try
             {
                 CheckConfigFile();
                 RaidManager raid = new RaidManager();
                 raid.DoManagement(_plariumExePath, _plariumExeArgs);
-                ConsoleWriter.CountDown("Closing app in {0}", 30);
             }
             catch (Exception e)
             {

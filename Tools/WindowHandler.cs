@@ -16,7 +16,8 @@ namespace Raid_AFK_Manager.Tools
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
-        public static void PositionWindow(int processId, int x, int y, int cx, int cy)
+
+        private static void PositionWindow(int processId, int x, int y, int cx, int cy)
         {
             //https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
             const short SWP_NOZORDER = 0X4;
@@ -29,6 +30,16 @@ namespace Raid_AFK_Manager.Tools
                 SetForegroundWindow(handle);
             }
             Thread.Sleep(1000);
+        }
+
+        internal static void RepositionRaidWindow(int processId)
+        {
+            PositionWindow(processId, 700, 0, 1235, 615);
+        }
+
+        internal static void RepositionMainWindow(int processId)
+        {
+            PositionWindow(processId, 0, 0, 720, 800);
         }
     }
 }

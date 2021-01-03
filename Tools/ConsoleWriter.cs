@@ -41,9 +41,10 @@ namespace Raid_AFK_Manager.Tools
         {
             for (int i = compteur; i >= 0; i--)
             {
-                Console.Write($"\r{message}   ", i);
+                Console.Write($"\r{message}    ", i);
                 Thread.Sleep(1000);
             }
+            Console.WriteLine();
         }
     }
 }

@@ -13,9 +13,10 @@ namespace Raid_AFK_Manager
     internal class RaidChecker
     {
         private const string _imgDirPath = ".\\img\\";
-        private const string _imgNamePit = "PitRedDot.bmp";
         private const string _imgNameMine = "MineDiamond.bmp";
         private const string _imgNameBattle = "BtnBattle.bmp";
+        private const string _imgNameReward = "RewardRedDot.bmp";
+        private const string _imgNamePit = "PitRedDot.bmp";
         private const string _imgNameMarket = "MarketRedDot.bmp";
         private const string _imgNameVictory = "victory.bmp";
         private const string _imgNameReplay = "BtnReplay.bmp";
@@ -28,6 +29,8 @@ namespace Raid_AFK_Manager
 
         private static Rectangle _recBattle = new Rectangle(1756, 550, 95, 40); //dimension et coordonnées du bouton "battle" sur bastion
         private static Rectangle _recMine = new Rectangle(810, 397, 30, 18); //dimension et coordonnées du temoin mine sur bastion
+        private static Rectangle _recReward = new Rectangle(1870, 459, 15, 15);
+
         private int raidProcessId;
 
         public RaidChecker(int raidProcessId)
@@ -66,12 +69,18 @@ namespace Raid_AFK_Manager
 
         internal void CheckMine()
         {
+            string imgPath = $"{_imgDirPath}{_imgNameMine}";
             Console.WriteLine("-> Starting to check the mine...");
+            if (!File.Exists(imgPath))
+            {
+                ConsoleWriter.WriteLineWarning($"Cannot find file {imgPath}. Phase skipped.");
+                return;
+            }
             Thread.Sleep(1000);
             WindowHandler.RepositionRaidWindow(raidProcessId);
             MouseHandler.SetCursorPosition(0, 0); 
             Thread.Sleep(1000);
-            Bitmap bitmapTemoin = new Bitmap($"{_imgDirPath}{_imgNameMine}");
+            Bitmap bitmapTemoin = new Bitmap(imgPath);
             Bitmap bitmapTest = ImgHandler.GetBitmap(_recMine);
             Thread.Sleep(1000);
             if (!ImgHandler.AreBitmapsDifferent(bitmapTemoin, bitmapTest))
@@ -82,6 +91,47 @@ namespace Raid_AFK_Manager
             else
             {
                 Console.WriteLine("No gems found.");
+                Thread.Sleep(1000);
+            }
+        }
+
+        internal void CheckPlaytimeRewards()
+        {
+            string imgPath = $"{_imgDirPath}{_imgNameReward}";
+            Console.WriteLine("-> Starting to check the playtime rewards...");
+            if (!File.Exists(imgPath))
+            {
+                ConsoleWriter.WriteLineWarning($"Cannot find file {imgPath}. Phase skipped.");
+                return;
+            }
+            Thread.Sleep(1000);
+            WindowHandler.RepositionRaidWindow(raidProcessId);
+            MouseHandler.SetCursorPosition(0, 0);
+            Thread.Sleep(1000);
+            Bitmap bitmapTemoin = new Bitmap(imgPath);
+            Bitmap bitmapTest = ImgHandler.GetBitmap(_recReward);
+            Thread.Sleep(1000);
+            if (!ImgHandler.AreBitmapsDifferent(bitmapTemoin, bitmapTest))
+            {
+                Console.WriteLine("Playtime rewards found. Let's get them.");
+                KeyBoardHandler.SendKey(KEY_N);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1038, 404);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1148, 399);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1259, 403);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1370, 406);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1474, 399);
+                Thread.Sleep(1000);
+                MouseHandler.MouseClick(1591, 402);
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("No rewards found.");
                 Thread.Sleep(1000);
             }
         }

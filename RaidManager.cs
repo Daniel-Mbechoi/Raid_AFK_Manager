@@ -32,6 +32,7 @@ namespace Raid_AFK_Manager
                 {
                     compteur++;
                     raid.CheckMine();
+                    raid.CheckPlaytimeRewards();
                     ConsoleWriter.CountDown($"End of loop n°{compteur}. Next loop start in {{0}}", 90);
                 }
             }

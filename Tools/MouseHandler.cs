@@ -84,7 +84,9 @@ namespace Raid_AFK_Manager.Tools
             SetCursorPosition(positionX, positionY);
             Thread.Sleep(1000);
             MouseEvent(MouseEventFlags.LeftDown);
+            Thread.Sleep(100);
             MouseEvent(MouseEventFlags.LeftUp);
+            Thread.Sleep(1000);
         }
     }
 }

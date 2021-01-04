@@ -32,8 +32,12 @@ namespace Raid_AFK_Manager
                 {
                     compteur++;
                     raid.CheckMine();
+                    raid.ShowBastion();
                     raid.CheckPlaytimeRewards();
-                    ConsoleWriter.CountDown($"End of loop n°{compteur}. Next loop start in {{0}}", 90);
+                    raid.ShowBastion();
+                    raid.CheckThePit();
+                    raid.ShowBastion();
+                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 90);
                 }
             }
         }
@@ -43,7 +47,7 @@ namespace Raid_AFK_Manager
             bool stepSuccess = false;
             if (IsRaidRunning())
             {
-                Console.WriteLine("Raid app has been detected.");
+                Console.WriteLine("Raid has been detected.");
                 Thread.Sleep(2000);
                 stepSuccess = true;
 

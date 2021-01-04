@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tesseract;
 
 namespace Raid_AFK_Manager.Tools
 {
@@ -42,6 +44,51 @@ namespace Raid_AFK_Manager.Tools
 
             return false;
 
+        }
+
+        internal static string ReadBitmap(Rectangle rec)
+        {
+            return ReadBitmap(GetBitmap(rec));
+        }
+
+        internal static string ReadBitmap(Bitmap bmp)
+        {
+            var bwBmp = ToBlackAndWhite(bmp);
+            var path = "tmp.bmp";
+            var word = string.Empty;
+            bwBmp.Save(path);
+
+
+            using (var engine = new TesseractEngine(@"./TessData", "eng", EngineMode.Default))
+            using (var img = Pix.LoadFromFile(path))
+            using (var page = engine.Process(img))
+            {
+                if (page.GetMeanConfidence() >= (0.9f))
+                {
+                    word = page.GetText();
+                }
+            }
+
+            File.Delete(path);
+            return word;
+        }
+
+        //Thanks to Jón Trausti Arason and Zachary Canann
+        //https://stackoverflow.com/questions/4669317/how-to-convert-a-bitmap-image-to-black-and-white-in-c
+        private static Bitmap ToBlackAndWhite(Bitmap bmp)
+        {
+            int rgb;
+            Color c;
+
+            for (int y = 0; y < bmp.Height; y++)
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    c = bmp.GetPixel(x, y);
+                    rgb = (int)(Math.Round(((double)(c.R + c.G + c.B) / 3.0) / 255) * 255);
+                    bmp.SetPixel(x, y, Color.FromArgb(rgb, rgb, rgb));
+                }
+
+            return bmp;
         }
     }
 }

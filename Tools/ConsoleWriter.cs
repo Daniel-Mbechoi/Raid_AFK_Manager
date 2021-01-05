@@ -74,10 +74,15 @@ namespace Raid_AFK_Manager.Tools
             for (int i = compteur; i >= 0; i--)
             {
                 Console.Write($"\r{message}    ", i);
-                SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);
+                KeepAwake();
                 Thread.Sleep(1000);
             }
             Console.WriteLine();
+        }
+
+        internal static void KeepAwake()
+        {
+            SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);
         }
     }
 }

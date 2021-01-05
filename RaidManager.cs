@@ -27,6 +27,8 @@ namespace Raid_AFK_Manager
             {
                 WindowHandler.RepositionRaidWindow(_raidProcessId);
                 RaidChecker raid = new RaidChecker(_raidProcessId);
+                int nbLoop = 30;
+                bool infiniteBattle = (nbLoop == 0);
 
                 while (raid.ShowBastion())
                 {
@@ -37,7 +39,10 @@ namespace Raid_AFK_Manager
                     raid.ShowBastion();
                     raid.CheckThePit();
                     raid.ShowBastion();
-                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 90);
+                    if(nbLoop>0 || infiniteBattle) nbLoop = raid.RunArcaneDungeon(nbLoop);
+                    raid.ShowBastion();
+                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 180);
+                    Console.WriteLine("_______________________________");
                 }
             }
         }
@@ -47,14 +52,14 @@ namespace Raid_AFK_Manager
             bool stepSuccess = false;
             if (IsRaidRunning())
             {
-                Console.WriteLine("Raid has been detected.");
+                Console.WriteLine("\nRaid has been detected.");
                 Thread.Sleep(2000);
                 stepSuccess = true;
 
             }
             else if (!string.IsNullOrEmpty(exePath))
             {
-                Console.WriteLine("Raid processus not found.\nTrying to launch raid....");
+                Console.WriteLine("\nRaid processus not found.\nTrying to launch raid....");
                 if (LaunchRaid(exePath, exeArgs)) stepSuccess = true;
             }
 

@@ -2,18 +2,24 @@
 using System;
 using System.Configuration;
 using System.IO;
+using System.Threading;
 
 namespace Raid_AFK_Manager
 {
     class Program
     {
-        private static readonly string _version = "0.0.6";
+        private static readonly string _version = "0.0.7";
         private static string _plariumExePath = ConfigurationManager.AppSettings["PlariumExePath"];
         private static string _plariumExeArgs = ConfigurationManager.AppSettings["PlariumExeArguments"];
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"Hello and welcome to RAID AFK MANAGER v{_version} !");
+            Console.Write("Hello and welcome to ");
+            ConsoleWriter.WriteLineInformation($"RAID AFK MANAGER v{_version} !");
+            Thread.Sleep(800);
+            Console.WriteLine("This application use terreract-OCR by Charles Weld\n(more info @ https://github.com/charlesw/tesseract)");
+            Console.WriteLine("_______________________________");
+            Thread.Sleep(800);
             try
             {
                 CheckConfigFile();

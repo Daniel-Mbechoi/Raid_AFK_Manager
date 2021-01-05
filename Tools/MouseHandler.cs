@@ -88,5 +88,20 @@ namespace Raid_AFK_Manager.Tools
             MouseEvent(MouseEventFlags.LeftUp);
             Thread.Sleep(1000);
         }
+
+        internal static void MouseDrag(int positionStartX, int positionStartY, int positionEndX, int positionEndY)
+        {
+            Thread.Sleep(1000);
+            SetCursorPosition(positionStartX, positionStartY);
+            Thread.Sleep(1000);
+            MouseEvent(MouseEventFlags.LeftDown);
+            Thread.Sleep(600);
+            MouseEvent(MouseEventFlags.Move);
+            Thread.Sleep(1000);
+            SetCursorPosition(positionEndX, positionEndY);
+            Thread.Sleep(600);
+            MouseEvent(MouseEventFlags.LeftUp);
+            Thread.Sleep(1000);
+        }
     }
 }

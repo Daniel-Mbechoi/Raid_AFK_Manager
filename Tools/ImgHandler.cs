@@ -58,14 +58,13 @@ namespace Raid_AFK_Manager.Tools
             var word = string.Empty;
             bwBmp.Save(path);
 
-
             using (var engine = new TesseractEngine(@"./TessData", "eng", EngineMode.Default))
             using (var img = Pix.LoadFromFile(path))
             using (var page = engine.Process(img))
             {
-                if (page.GetMeanConfidence() >= (0.9f))
+                if (page.GetMeanConfidence() >= (0.7f))
                 {
-                    word = page.GetText();
+                    word = page.GetText().Trim();
                 }
             }
 

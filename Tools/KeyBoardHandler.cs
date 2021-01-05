@@ -11,6 +11,7 @@ namespace Raid_AFK_Manager.Tools
     internal static class KeyBoardHandler
     {
         internal static void SendKey(string key)
+        
         {
             SendKeys.SendWait(key);
             Thread.Sleep(3000);

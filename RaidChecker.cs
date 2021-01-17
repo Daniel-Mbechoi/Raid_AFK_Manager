@@ -279,6 +279,7 @@ namespace Raid_AFK_Manager
                         if ((nbLoop != 0) && (compteur >= nbLoop))
                         {
                             Console.Write("\nMax number of allowed battle reached...");
+                            RaidOptions.ArcaneDungeonAllowed = false;
                             break;
                         }
                         KeyBoardHandler.SendKey(KEY_R);
@@ -359,6 +360,7 @@ namespace Raid_AFK_Manager
                         if ((nbLoop != 0) && (compteur >= nbLoop))
                         {
                             Console.Write("\nMax number of allowed battle reached...");
+                            RaidOptions.DurhamForestAllowed = false;
                             break;
                         }
                         KeyBoardHandler.SendKey(KEY_R);

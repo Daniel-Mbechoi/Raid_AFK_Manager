@@ -11,8 +11,8 @@ namespace Raid_AFK_Manager
         internal static bool CheckMineAllowed { get; private set; }
         internal static bool CheckPitAllowed { get; private set; }
         internal static bool CheckRewards { get; private set; }
-        internal static bool ArcaneDungeonAllowed { get; private set; }
-        internal static bool DurhamForestAllowed { get; private set; }
+        internal static bool ArcaneDungeonAllowed { get; set; }
+        internal static bool DurhamForestAllowed { get; set; }
         internal static int LoopNumber { get => _loopNumber; set => _loopNumber = value; }
         internal static int ArcaneLoopNumber { get => _arcaneLoopNumber; set => _arcaneLoopNumber = value; }
         internal static int DurhamLoopNumber { get => _durhamLoopNumber; set => _durhamLoopNumber = value; }

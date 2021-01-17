@@ -44,8 +44,15 @@ namespace Raid_AFK_Manager
                     if ((RaidOptions.ArcaneDungeonAllowed) && ((nbLoopArcane > 0 || infiniteArcaneBattle))) nbLoopArcane = raid.RunArcaneDungeon(nbLoopArcane);
                     raid.ShowBastion();
                     if ((RaidOptions.DurhamForestAllowed) && ((nbLoopDurham > 0 || infiniteDurhamBattle))) nbLoopDurham = raid.RunDurhamForest(nbLoopDurham);
-                    raid.ShowBastion();
-                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 320);
+                    if(!RaidOptions.CheckMineAllowed && !RaidOptions.CheckRewards && !RaidOptions.CheckPitAllowed && !RaidOptions.ArcaneDungeonAllowed && !RaidOptions.DurhamForestAllowed)
+                    {
+                        Console.WriteLine("All actions finished...");
+                        Thread.Sleep(1000);
+                        Console.WriteLine("Exiting...");
+                        Thread.Sleep(1000);
+                        break;
+                    }
+                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 180);
                     Console.WriteLine("_______________________________");
                 }
             }

@@ -27,21 +27,25 @@ namespace Raid_AFK_Manager
             {
                 WindowHandler.RepositionRaidWindow(_raidProcessId);
                 RaidChecker raid = new RaidChecker(_raidProcessId);
-                int nbLoop = 30;
-                bool infiniteBattle = (nbLoop == 0);
+                int nbLoopArcane = RaidOptions.ArcaneLoopNumber;
+                int nbLoopDurham = RaidOptions.DurhamLoopNumber;
+                bool infiniteArcaneBattle = (nbLoopArcane == 0);
+                bool infiniteDurhamBattle = (nbLoopDurham == 0);
 
                 while (raid.ShowBastion())
                 {
                     compteur++;
-                    raid.CheckMine();
+                    if (RaidOptions.CheckMineAllowed) raid.CheckMine();
                     raid.ShowBastion();
-                    raid.CheckPlaytimeRewards();
+                    if (RaidOptions.CheckRewards) raid.CheckPlaytimeRewards();
                     raid.ShowBastion();
-                    raid.CheckThePit();
+                    if (RaidOptions.CheckPitAllowed) raid.CheckThePit();
                     raid.ShowBastion();
-                    if(nbLoop>0 || infiniteBattle) nbLoop = raid.RunArcaneDungeon(nbLoop);
+                    if ((RaidOptions.ArcaneDungeonAllowed) && ((nbLoopArcane > 0 || infiniteArcaneBattle))) nbLoopArcane = raid.RunArcaneDungeon(nbLoopArcane);
                     raid.ShowBastion();
-                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 180);
+                    if ((RaidOptions.DurhamForestAllowed) && ((nbLoopDurham > 0 || infiniteDurhamBattle))) nbLoopDurham = raid.RunDurhamForest(nbLoopDurham);
+                    raid.ShowBastion();
+                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 320);
                     Console.WriteLine("_______________________________");
                 }
             }

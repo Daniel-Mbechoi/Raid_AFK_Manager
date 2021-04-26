@@ -13,6 +13,18 @@ namespace Raid_AFK_Manager.Tools
 {
     internal static class ImgHandler
     {
+        internal static void RecordBitmap(int x, int y, int w, int h, string nameFile)
+        {
+            Rectangle r = new Rectangle(x, y, w, h);
+            RecordBitmap(r, nameFile);
+        }
+
+        internal static void RecordBitmap(Rectangle r, string nameFile)
+        {
+            Bitmap b = GetBitmap(r);
+            b.Save(nameFile);
+        }
+
         internal static Bitmap GetBitmap(Rectangle rect)
         {
             Bitmap b = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb);
@@ -22,9 +34,14 @@ namespace Raid_AFK_Manager.Tools
             return b;
         }
 
-        internal static bool AreBitmapsDifferent(Bitmap bmpOriginal, Bitmap bitmapToTest)
+        internal static bool AreBitmapsDifferent(Bitmap bmpOriginal, Bitmap bitmapToTest, bool sauvegarde = false)
         {
-            int maxTolerance = (int)Math.Round(bmpOriginal.Height * bmpOriginal.Width * 0.15, MidpointRounding.ToEven); //tolérance : On ne doit pas dépacer 15% de différence
+            if (sauvegarde)
+            {
+                Directory.CreateDirectory("Saves");
+                bitmapToTest.Save("Saves\\_img_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+            }
+            int maxTolerance = (int)Math.Round(bmpOriginal.Height * bmpOriginal.Width * 0.15, MidpointRounding.ToEven); //tolérance : On ne doit pas dépacer 15% de différence            
             int nbDifference = 0;
 
             for (int i = 0; i < bmpOriginal.Width; i++)
@@ -36,6 +53,7 @@ namespace Raid_AFK_Manager.Tools
                         nbDifference++;
                         if (nbDifference > maxTolerance)
                         {
+                            //bitmapToTest.Save("_Test_failed_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".bmp");
                             return true;
                         }
                     }

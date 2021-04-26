@@ -1,0 +1,33 @@
+﻿-> Step 1 : Create a GitHub account [DONE]
+
+-> Step 2 : Be able to launch raid via plarium play or detect if the app is running [DONE]
+
+-> Step 3 : Be able to select the app window, move it and rescale it, so it will be easier for the mouse manipulation and the screenshots [DONE]
+
+-> Step 4 : Be able to detect if the mine need some harving, and get the gems [DONE]
+
+-> Step 5 : Be able to detect if playtime rewards are available, and collect them. [DONE]
+
+-> Step 6 : Be able to detect if the pit need some intervention, and auto-level the champions [DONE]
+
+-> Step 7 : From the bastion, be able to go to the arcane dungeon and launch automatically a battleloop to a specific stage [DONE]
+
+-> Step 8 : Be able to manage arguments so everybody could configure their own loops [DONE]
+
+-> Step 9 : From the bastion, be able to go to a specific campaign mission and lanch automatically a battleloop to a specific stage [DONE]
+
+-> Step 10 : Be able to detect if a dungeon (magic, force, void, etc..) is available, and lanch automatically a battleloop in it to a specific stage [DONE]
+
+-> Step 10.5 : Create a help display [DONE]
+
+-> Step 11 : Be able to buy energy with gem if allowed
+
+-> Step 11.5 : From the bastion Be able to launch automatically 5 tag team arena per day (asked by icaroamerico22)
+
+-> Step 12 : From the bastion, be able to go to any dungeon (spider, dragon, etc...) and lanch automatically a battleloop
+
+-> Step 13 : Be able to autosell artifacts if allowed
+
+-> Step 14 : Be able to autoswap champions to manage food leveling
+
+-> Step 15 : Be able to autoswap champions in the pit if max level reached.

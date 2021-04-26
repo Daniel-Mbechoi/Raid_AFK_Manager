@@ -21,6 +21,8 @@ namespace Raid_AFK_Manager
 
         internal void DoManagement(string exePath, string exeArgs)
         {
+            if (!RaidOptions.GlobalBattleAllowed && !RaidOptions.GlobalCheckAllowed) return;
+
             int compteur = 0;
             WindowHandler.RepositionMainWindow(_mainProcessId);
             if (CheckRaidApp(exePath, exeArgs))
@@ -29,22 +31,118 @@ namespace Raid_AFK_Manager
                 RaidChecker raid = new RaidChecker(_raidProcessId);
                 int nbLoopArcane = RaidOptions.ArcaneLoopNumber;
                 int nbLoopDurham = RaidOptions.DurhamLoopNumber;
+                int nbLoopForce = RaidOptions.ForceLoopNumber;
+                int nbLoopMagic = RaidOptions.MagicLoopNumber;
+                int nbLoopVoid = RaidOptions.VoidLoopNumber;
+                int nbLoopSpirit = RaidOptions.SpiritLoopNumber;
+                int nbLoopIceGolemPeak = RaidOptions.IceGolemPeakLoopNumber;
+                int nbLoopMinotaur = RaidOptions.MinotaurLoopNumber;
+                int nbLoopGodfrey = RaidOptions.GodfreyLoopNumber;
                 bool infiniteArcaneBattle = (nbLoopArcane == 0);
+                bool infiniteForceBattle = (nbLoopForce == 0);
                 bool infiniteDurhamBattle = (nbLoopDurham == 0);
+                bool infiniteMagicBattle = (nbLoopMagic == 0);
+                bool infiniteVoidBattle = (nbLoopVoid == 0);
+                bool infiniteSpiritBattle = (nbLoopSpirit == 0);
+                bool infiniteIceGolemPeakBattle = (nbLoopIceGolemPeak == 0);
+                bool infiniteMinotaurBattle = (nbLoopMinotaur == 0);
+                bool infiniteGodfreyBattle = (nbLoopGodfrey == 0);
+                bool infiniteLoop = (RaidOptions.LoopNumber == 0);
 
                 while (raid.ShowBastion())
                 {
                     compteur++;
-                    if (RaidOptions.CheckMineAllowed) raid.CheckMine();
-                    raid.ShowBastion();
-                    if (RaidOptions.CheckRewards) raid.CheckPlaytimeRewards();
-                    raid.ShowBastion();
-                    if (RaidOptions.CheckPitAllowed) raid.CheckThePit();
-                    raid.ShowBastion();
-                    if ((RaidOptions.ArcaneDungeonAllowed) && ((nbLoopArcane > 0 || infiniteArcaneBattle))) nbLoopArcane = raid.RunArcaneDungeon(nbLoopArcane);
-                    raid.ShowBastion();
-                    if ((RaidOptions.DurhamForestAllowed) && ((nbLoopDurham > 0 || infiniteDurhamBattle))) nbLoopDurham = raid.RunDurhamForest(nbLoopDurham);
-                    if(!RaidOptions.CheckMineAllowed && !RaidOptions.CheckRewards && !RaidOptions.CheckPitAllowed && !RaidOptions.ArcaneDungeonAllowed && !RaidOptions.DurhamForestAllowed)
+                    if (RaidOptions.CheckRewardsAllowed)
+                    {
+                        raid.CheckPlaytimeRewards();
+                        raid.ShowBastion();
+                    }
+
+                    if (RaidOptions.CheckMineAllowed)
+                    {
+                        raid.CheckMine();
+                        raid.ShowBastion();
+                    }
+
+                    if (RaidOptions.CheckPitAllowed)
+                    {
+                        raid.CheckThePit();
+                        raid.ShowBastion();
+                    }
+
+                    if (RaidOptions.CheckMarketAllowed)
+                    {
+                        raid.CheckMarket();
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.ArcaneKeepAllowed) && ((nbLoopArcane > 0 || infiniteArcaneBattle)))
+                    {
+                        nbLoopArcane = raid.RunArcaneKeep(nbLoopArcane);
+                        if (!infiniteArcaneBattle && nbLoopArcane == 0) RaidOptions.ArcaneKeepAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.ForceKeepAllowed) && ((nbLoopForce > 0 || infiniteForceBattle)))
+                    {
+                        nbLoopForce = raid.RunForceKeep(nbLoopForce);
+                        if (!infiniteForceBattle && nbLoopForce == 0) RaidOptions.ForceKeepAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.MagicKeepAllowed) && ((nbLoopMagic > 0 || infiniteMagicBattle)))
+                    {
+                        nbLoopMagic = raid.RunMagicKeep(nbLoopMagic);
+                        if (!infiniteMagicBattle && nbLoopMagic == 0) RaidOptions.MagicKeepAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.SpiritKeepAllowed) && ((nbLoopSpirit > 0 || infiniteSpiritBattle)))
+                    {
+                        nbLoopSpirit = raid.RunSpiritKeep(nbLoopSpirit);
+                        if (!infiniteSpiritBattle && nbLoopSpirit == 0) RaidOptions.SpiritKeepAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.VoidKeepAllowed) && ((nbLoopVoid > 0 || infiniteVoidBattle)))
+                    {
+                        nbLoopVoid = raid.RunVoidKeep(nbLoopVoid);
+                        if (!infiniteVoidBattle && nbLoopVoid == 0) RaidOptions.VoidKeepAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.DurhamForestAllowed) && ((nbLoopDurham > 0 || infiniteDurhamBattle)))
+                    {
+                        nbLoopDurham = raid.RunDurhamForest(nbLoopDurham);
+                        if (!infiniteDurhamBattle && nbLoopDurham == 0) RaidOptions.DurhamForestAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.IceGolemAllowed) && ((nbLoopIceGolemPeak > 0 || infiniteIceGolemPeakBattle)))
+                    {
+                        nbLoopIceGolemPeak = raid.RunIceGolemPeak(nbLoopIceGolemPeak);
+                        if (!infiniteIceGolemPeakBattle && nbLoopIceGolemPeak == 0) RaidOptions.IceGolemAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.MinotaurAllowed) && ((nbLoopMinotaur > 0 || infiniteMinotaurBattle)))
+                    {
+                        nbLoopMinotaur = raid.RunMinotaurLabyrinth(nbLoopMinotaur);
+                        if (!infiniteMinotaurBattle && nbLoopMinotaur == 0) RaidOptions.MinotaurAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    if ((RaidOptions.GodfreyAllowed) && ((nbLoopGodfrey > 0 || infiniteGodfreyBattle)))
+                    {
+                        nbLoopGodfrey = raid.RunGodfreyCrossing(nbLoopGodfrey);
+                        if (!infiniteGodfreyBattle && nbLoopGodfrey == 0) RaidOptions.GodfreyAllowed = false;
+                        raid.ShowBastion();
+                    }
+
+                    Console.Write($"\nEnd of loop n°{compteur}");
+                    if (!infiniteLoop) Console.Write($"/{RaidOptions.LoopNumber}");
+                    Console.WriteLine();
+                    if (!RaidOptions.GlobalCheckAllowed && !RaidOptions.GlobalBattleAllowed || (!infiniteLoop && (compteur == RaidOptions.LoopNumber)))
                     {
                         Console.WriteLine("All actions finished...");
                         Thread.Sleep(1000);
@@ -52,7 +150,7 @@ namespace Raid_AFK_Manager
                         Thread.Sleep(1000);
                         break;
                     }
-                    ConsoleWriter.CountDown($"** End of loop n°{compteur}. Next loop start in {{0}} **", 180);
+                    ConsoleWriter.CountDown($"Next loop start in {{0}} ", 180);
                     Console.WriteLine("_______________________________");
                 }
             }

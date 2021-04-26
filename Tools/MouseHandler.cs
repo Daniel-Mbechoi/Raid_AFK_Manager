@@ -20,7 +20,8 @@ namespace Raid_AFK_Manager.Tools
             Move = 0x00000001,
             Absolute = 0x00008000,
             RightDown = 0x00000008,
-            RightUp = 0x00000010
+            RightUp = 0x00000010,
+            Wheel = 0x0800
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
@@ -102,6 +103,26 @@ namespace Raid_AFK_Manager.Tools
             Thread.Sleep(600);
             MouseEvent(MouseEventFlags.LeftUp);
             Thread.Sleep(1000);
+        }
+
+        internal static void MouseWheelDown(int nombreTours)
+        {
+            MousePoint position = GetCursorPosition();
+            for (int i = 0; i < nombreTours; i++)
+            {
+                mouse_event(0x800, position.X, position.Y, -120, 50);
+            }
+            
+        }
+
+        internal static void MouseWheelUp(int nombreTours)
+        {
+            MousePoint position = GetCursorPosition();
+            for (int i = 0; i < nombreTours; i++)
+            {
+                mouse_event(0x800, position.X, position.Y, -120, 50);
+            }
+
         }
     }
 }
